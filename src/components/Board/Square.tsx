@@ -9,9 +9,9 @@ interface BoardSquareProps {
 
 const Square = ({ onSquareSelect, value }: BoardSquareProps) => {
   return (
-    <div className={styles.square} onClick={() => onSquareSelect()}>
+    <button className={styles.square} onClick={() => onSquareSelect()}>
       {value}
-    </div>
+    </button>
   );
 };
 
