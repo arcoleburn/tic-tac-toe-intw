@@ -23,7 +23,7 @@ export default async function handler(
   const winner = isWinner(player,board)
 
   if (!winner){
-    res.status(200).json({gameOver: false, winner: 'z'})
+    res.status(200).json({gameOver: false, winner: null})
   }
   if(winner){
     res.status(200).json({gameOver: true, winner: player})
