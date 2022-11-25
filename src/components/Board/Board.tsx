@@ -22,7 +22,6 @@ const Board = () => {
             key={squareIndex}
             value={value}
             onSquareSelect={() => {
-              console.log("click");
               handleSquareSelect(squareIndex);
             }}
           />
