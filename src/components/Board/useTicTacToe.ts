@@ -1,58 +1,58 @@
-import type {
-  TicTacToeBoard,
-  BoardSquareValue,
-  Player,
-} from "@utilities/ticTacToe";
+import { TicTacToeBoard, Player } from "@utilities/ticTacToe";
 
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
-import { isGameOver, isWinner } from "@utilities/ticTacToe";
-import { useScore } from "../Score";
 
-const createNewTicTacToeBoard = () => Array(9).fill(null);
+const initialBoard = Array(9).fill(null);
 
 export const useTicTacToe = () => {
-  const { addWinO, addWinX } = useScore();
-  const [board, setBoard] = useState<TicTacToeBoard>(createNewTicTacToeBoard);
-
+  const [board, setBoard] = useState<TicTacToeBoard>(initialBoard);
   const [isX, setIsX] = useState(true);
-  const [winner, setWinner] = useState<BoardSquareValue>(null);
-  const currentTurn: Player = isX ? "X" : "O";
-  const updateScore = isX ? addWinX : addWinO;
+  const [winner, setWinner] = useState<Player>();
+
+  const currentTurn = isX ? "X" : "O";
+
+  const handleSquareSelect =  useCallback(
+    async (selectedSquare: number) => {
+      if (board[selectedSquare]) {
+        return;
+      }
+console.log('handle square select')
+      const newBoard = [...board];
+      newBoard[selectedSquare] = currentTurn;
+      setBoard(newBoard);
+
+      const data = {
+        board: newBoard,
+        player: currentTurn
+      }
+      const winCheck = await (fetch('https://tic-tac-toe-intw.vercel.app/api/wincheck',{
+        method:'POST',
+        body: JSON.stringify(data)
+      }))
+      console.log({winCheck})
+
+      const {gameOver, winner} = await winCheck.json()
+
+      if (gameOver) {
+        setWinner(winner);
+      }
+
+      setIsX(!isX);
+    },
+    [board, isX]
+  );
 
   useEffect(() => {
-    if (!winner) return;
-  }, [winner]);
-
-  const handleSquareSelect = (selectedSquare: number) => {
-    if (board[selectedSquare] || !!winner) {
+    if (!winner) {
       return;
     }
 
-    const newBoard = [...board];
-    newBoard[selectedSquare] = isX ? "X" : "O";
-
-    if (isWinner(currentTurn, newBoard)) {
-      setWinner(currentTurn);
-      updateScore();
-    }
-
-    setBoard(newBoard);
-    setIsX((previousIsXValue) => !previousIsXValue);
-  };
-
-  const reset = () => {
-    setBoard(createNewTicTacToeBoard());
-    setIsX(true);
-    setWinner(null);
-  };
+    alert(`${winner} has won the game`);
+  }, [winner]);
 
   return {
     board,
     handleSquareSelect,
-    reset,
-    currentTurn,
-    winner,
-    isGameOver: isGameOver(board),
   };
 };

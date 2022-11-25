@@ -21,7 +21,10 @@ const Board = () => {
           <Square
             key={squareIndex}
             value={value}
-            onSquareSelect={() => handleSquareSelect(squareIndex)}
+            onSquareSelect={() => {
+              console.log("click");
+              handleSquareSelect(squareIndex);
+            }}
           />
         ))}
       </div>
