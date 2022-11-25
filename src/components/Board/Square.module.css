@@ -1,0 +1,9 @@
+.square {
+  width: 150px;
+  height: 150px;
+  background-color: hsl(8, 92.8%, 91%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 5em;
+}

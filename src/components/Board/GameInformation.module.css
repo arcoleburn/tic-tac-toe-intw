@@ -1,0 +1,10 @@
+.informationContainer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.turnInformation {
+  font-size: 2em;
+  font-weight: bold;
+}

@@ -1,0 +1,33 @@
+.scoreContainer {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+}
+
+.scoreText {
+  font-size: 32px;
+  font-weight: bold;
+  margin-bottom: 0;
+}
+
+.scoreRow {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.scoreDivider {
+  width: 5px;
+  height: 100%;
+  background-color: white;
+}
+
+.scoreLabel {
+  background-color: hsl(8, 92.8%, 91%);
+  margin-bottom: 0;
+}
+
+.score {
+  flex: 1;
+}

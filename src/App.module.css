@@ -1,0 +1,10 @@
+.app {
+  display: grid;
+  grid-template-columns: 1fr 200px;
+  gap: 32px;
+}
+
+.appHeader {
+  margin: 0;
+  margin-bottom: 16px;
+}
