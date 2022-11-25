@@ -28,11 +28,12 @@ console.log('handle square select')
       }
       const winCheck = await (fetch('https://tic-tac-toe-intw.vercel.app/api/wincheck',{
         method:'POST',
+        mode: "no-cors", 
         body: JSON.stringify(data)
       }))
       console.log({winCheck})
-
-      const {gameOver, winner} = await winCheck.json()
+      const res = await winCheck.json()
+      const {gameOver, winner} = res
 
       if (gameOver) {
         setWinner(winner);
