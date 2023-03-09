@@ -14,8 +14,9 @@ export default async function handler(
   });
   const query = req.query;
 
-  const { year, make } = query;
+  const { year } = query;
 
+  const make = query.make as string;
   const data = getByYearAndMake(year, make);
 
   res.status(200).json({ data });
