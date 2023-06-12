@@ -17,6 +17,15 @@ export default async function handler(
   const { year } = query;
 
   const make = query.make as string;
+
+  if (!year || !make) {
+    return res
+      .status(400)
+      .json({
+        error:
+          "YEAR and MAKE are required to search models. please ensure your request contains valid query params for both year and make",
+      });
+  }
   const data = getByYearAndMake(year, make);
 
   res.status(200).json({ data });

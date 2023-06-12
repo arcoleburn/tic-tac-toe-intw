@@ -15,8 +15,15 @@ export default async function handler(
   const query = req.query;
 
   const { year } = query;
-
-  const data = getByYear(year)
+  if (!year) {
+    return res
+      .status(400)
+      .json({
+        error:
+          "YEAR is required to search makes. please ensure your request contains a valid query param for year",
+      });
+  }
+  const data = getByYear(year);
 
   res.status(200).json({ data });
 }
